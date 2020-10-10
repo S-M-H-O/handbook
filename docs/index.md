@@ -4,7 +4,7 @@
 
 > abc
 
-abcdef, _abcdef_, **abcdef**, ~abcdef~
+abcdef, _abcdef_, **abcdef**, ~~abcdef~~
 
 ```python
 x = a if a > 0 else b
