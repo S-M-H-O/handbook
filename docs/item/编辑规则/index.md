@@ -8,10 +8,10 @@ tags: ['SMHO手册说明']
 
 用户编辑SMHO手册上的内容的基本方式为提交“拉取请求”(Pull Request, PR)。关于Pull Request的更多信息可以在GitHub的官方文档（[中文](https://docs.github.com/cn/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests)/[英文](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests)）上找到。在这里仅进行最简单的概述。
 
-注：以下操作请在登录[Github](https://github.com)后再进行。
+注：以下操作请在登录[GitHub](https://github.com)后再进行。
 
 1. 进入SMHO手册的[代码仓库(repo)](https://github.com/S-M-H-O/handbook)，点击页面右上角的“Fork”，将整个代码仓库复制到您自己的账户中，这个复制得到的仓库称为您的“本地仓库”；
-2. 如果您要更改词条内容，可以直接在“本地仓库”中更改；如果您要增加词条，请将编写好的词条文件夹上传至“本地仓库；具体更改或上传方法略（请遵循GitHub网页上的按钮提示），编写词条的格式以及词条文件夹的构成见下；
+2. 如果您要更改词条内容，可以直接在“本地仓库”中的`/docs/item/`文件夹下的词条文件夹中更改；如果您要增加词条，请将编写好的词条文件夹上传至“本地仓库”中的`/docs/item/`文件夹下；具体更改或上传方法略（请遵循GitHub网页上的按钮提示），编写词条的格式以及词条文件夹的构成见下；
 3. 在SMHO手册的代码仓库中提请一个新的PR，请求将“本地仓库”合并到SMHO手册的`main`分支（默认）；
 4. 等待审核通过后，您的更改将在SMHO手册中生效。
 
@@ -25,10 +25,11 @@ SMHO手册的词条以文件夹的形式呈现，下面是词条的文件结构�
 
 ```
 [词条名称]
-    |
     ├── index.md
     └── ...
 ```
+
+SMHO手册的所有词条都应置于`/docs/item/`文件夹下。
 
 SMHO手册中的词条内容由两部分组成：**正文**和**附件**。其中，附件主要为插图。
 
@@ -56,6 +57,7 @@ title: 新标题
 ---
 ...
 ---
+
 ```
 
 其中，`...`的部分使用YAML语法，为YAML部分。要添加标签，在YAML部分添加（注意把`...`删掉）如下YAML代码：
@@ -64,7 +66,7 @@ title: 新标题
 tags: ['标签1', '标签2', ... ]
 ```
 
-您可以添加任意数量的标签。建议您在添加标签前，先查看已有的标签，以免添加含义相近但名称不同的标签。您可以在[这里](#)查看已有的标签。
+您可以添加任意数量的标签。建议您在添加标签前，先查看已有的标签，以免添加含义相近但名称不同的标签。您可以在[这里]({{ site.baseurl }}/tags.html)查看已有的标签。SMHO手册的标签是大小写敏感的；另外，请注意尽量不要在标签中使用空格（请用连字符`-`或下划线`_`代替）。
 
 ### 附件
 

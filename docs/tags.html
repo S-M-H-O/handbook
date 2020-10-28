@@ -1,0 +1,49 @@
+---
+layout: default
+title: 所有标签
+---
+
+<script src="{{site.baseurl}}/assets/js/jquery-3.5.1.min.js"></script>
+
+<h1>所有标签</h1>
+
+<ul id="tag-list"></ul>
+
+<script>
+    $(function() {
+        $.ajax({
+            url: 'tags.xml',
+            dataType: 'xml',
+            success: function(xml) {
+                $(xml).find('tag').each(function() {
+                    var tagname = $(this).children('name').text();
+                    var tagobj = $('<li></li>');
+                    var pages = $(`<ul></ul>`).attr('id', tagname);
+                    tagobj.append(
+                        $('<a></a>')
+                        .text(tagname)
+                        .attr('href', 'javascript:void(0);')
+                        .click(function() {
+                            pages.toggle();
+                        })
+                    );
+                    $(this).find('item').each(function() {
+                        $('<li></li>')
+                        .append(
+                            $('<a></a>')
+                            .text($(this).children('title').text())
+                            .attr('href', $(this).children('url').text())
+                        )
+                        .appendTo(pages);
+                    });
+                    tagobj
+                    .append(pages.hide())
+                    .appendTo($('#tag-list'));
+                });
+            },
+            error: function() {
+                alert('无法获取“tags.xml”文件！');
+            }
+        });
+    });
+</script>

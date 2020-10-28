@@ -1,0 +1,100 @@
+---
+layout: default
+title: 搜索页
+---
+
+<script src="{{site.baseurl}}/assets/js/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="./jquery-ui.css" type="text/css" />
+<script src="./jquery-ui.js"></script>
+
+<h1>搜索页</h1>
+
+<p>标签筛选：<a href="javascript:void(0);" id="append">添加标签项</a></p>
+<ul id="tags"></ul>
+
+<p>关键字搜索：<input type="text" id="search" placeholder="请输入关键字..." /></p>
+
+<script>
+    $(function() {
+        var tags;
+        var stags = [];
+        var targets = {};
+        var data = [];
+        function setTargets() {
+            stags = [];
+            targets = {};
+            $('ul#tags li select option').removeAttr('disabled');
+            $('ul#tags li select option:selected').each(function() {
+                var stag = $(this).text();
+                stags.push(stag);
+                $(`ul#tags li select option[value='${stag}']`).attr('disabled', 'disabled');
+                tags.find('tag').each(function() {
+                    if ($(this).children('name').text() == stag) {
+                        $(this).find('item').each(function() {
+                            targets[$(this).children('title').text()] = $(this).children('url').text();
+                        });
+                    };
+                });
+            });
+            if (stags.length == 0) {
+                tags.find('item').each(function() {
+                    targets[$(this).children('title').text()] = $(this).children('url').text();
+                })
+            }
+            data = [];
+            Object.keys(targets).forEach(function(title) {
+                data.push({
+                    value: title,
+                    url: targets[title]
+                });
+            });
+            $('#search').autocomplete({
+                source: data,
+                minLength: 0,
+                select: function(event, ui) {
+                    window.open(ui.item.url);
+                }
+            });
+        }
+        $.ajax({
+            url: '{{ site.baseurl }}/tags.xml',
+            dataType: 'xml',
+            success: function(xml) {
+                tags = $(xml);
+                setTargets();
+            },
+            error: function() {
+                alert('无法获取“tags.xml”文件！');
+            }
+        });
+        $('#append').click(function() {
+            $('<li></li>')
+            .append(
+                $('<select></select>')
+                .append((function() {
+                    var options = [];
+                    tags.find('tag').each(function() {
+                        var tag = $(this).children('name').text();
+                        options.push(
+                            $('<option></option>')
+                            .text(tag)
+                            .attr('value', tag)
+                        );
+                    });
+                    return options;
+                })()),
+                '&nbsp;&nbsp;',
+                $('<a></a>')
+                .attr('href', 'javascript:void(0);')
+                .text('删除')
+                .click(function() {
+                    $(this).parents('li').remove();
+                    setTargets();
+                })
+            )
+            .appendTo($('#tags'));
+            setTargets();
+        });
+        $('body').on('change', 'ul#tags li select', setTargets);
+    });
+</script>

@@ -1,0 +1,32 @@
+---
+---
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<tags>
+    {% assign tags_str = '' %}
+    {% for page in site.pages %}
+        {% if page.path contains 'item/' %}
+            {% for tag in page.tags %}
+                {% assign tags_str = tags_str | append: ' ' | append: tag %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    {% assign tags =  tags_str | split: ' ' | uniq | sort %}
+    {% for tag in tags %}
+        <tag>
+            <name>{{ tag }}</name>
+            <items>
+                {% for page in site.pages %}
+                    {% if page.path contains 'item/' %}
+                        {% if page.tags contains tag %}
+                            <item>
+                                <title>{{ page.title }}</title>
+                                <url>{{ site.url }}{{ site.baseurl }}{{ page.url }}</url>
+                            </item>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </items>
+        </tag>
+    {% endfor %}
+</tags>
