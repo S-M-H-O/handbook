@@ -6,7 +6,7 @@ title: 首页
 
 欢迎来到SMHO手册。
 
-[前往搜索页](#)
+[前往搜索页]({{ site.baseurl }}/search/)
 
 SMHO手册是一个由非营利性组织[SMHO](https://s-m-h-o.github.io/)运营的、以专业性知识为主的速查手册，供用户随时查阅使用。SMHO手册由词条组成。
 
