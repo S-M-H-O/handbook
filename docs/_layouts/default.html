@@ -41,6 +41,16 @@
       <section>
 
       {{ content }}
+      
+      <p>
+        {% if page.tags %}
+          <hr />
+          标签：
+          {{ page.tags | join: "，" }}
+          &nbsp;
+          <a href="{{ site.baseurl }}/tags.html">查看所有标签</a>
+        {% endif %}
+      </p>
 
       </section>
     </div>
