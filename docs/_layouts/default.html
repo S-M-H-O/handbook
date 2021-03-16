@@ -3,7 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="{{ site.baseurl }}/favicon.png" type="image/x-icon">
+    <script>
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.write(`<link rel="shortcut icon" href="{{ site.baseurl }}/favicon-white.png" type="image/x-icon">`);
+      } else {
+        document.write(`<link rel="shortcut icon" href="{{ site.baseurl }}/favicon.png" type="image/x-icon">`);
+      }
+    </script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
           tex2jax: {
